@@ -1,0 +1,91 @@
+#Imports 
+var S2_2A_Harm: ImageCollection " Sentinel-2 MSI: Multispectral Instrument, Level-2A" (23 Bands)
+var HAB_Sites: Table ...USA_HAB_Sites_20m_Buffer
+
+#Code
+var S2_filtered = S2_2A_Harm.filterDate('2019-01-01', '2022-05-31')
+
+# Extract Band 2
+var addB2 = function(image) {
+  var B2 = image.select('B2');
+  return image.addBands(B2);
+};
+
+var S2_HABs = S2_filtered
+ .mapaddB2 
+
+var S2_HABs_Sub = S2_HABs.select('B2');
+
+
+# Make Field sites geospatial and add Site IDs to feature
+var FeatCollectAsAList = HAB_Sites.toList(HAB_Sites.size());
+
+# map a function over the list to rename the IDs
+var HAB_Sites_geo = ee.FeatureCollection(FeatCollectAsAList.map(function(feat){
+  var Site_ID = ee.Feature(feat).get('Site_ID');
+  return ee.Feature(feat).set("system:index", Site_ID);
+}));
+
+
+# Extract multiple points over a collection
+var timeSeries_Multi = S2_HABs_Sub.map(function(image) {
+  return image.select('B2').reduceRegions({
+    collection: HAB_Sites_geo, 
+    reducer: ee.Reducer.mean().setOutputs(['B2']), 
+    scale: 20,
+  })
+# Return NoData as value -9999
+    .map(function(feature) {
+    var B2 = ee.List([feature.get('B2'), -9999])
+      .reduce(ee.Reducer.firstNonNull())
+    return feature.set({'B2': B2, 'imageID': image.id()})
+    })
+  }).flatten();
+
+var format = function(table, rowId, colId) {
+  var rows = table.distinct(rowId); 
+  var joined = ee.Join.saveAll('matches').apply({
+    primary: rows, 
+    secondary: table, 
+    condition: ee.Filter.equals({
+      leftField: rowId, 
+      rightField: rowId
+    })
+  });
+         
+  return joined.map(function(row) {
+      var values = ee.List(row.get('matches'))
+        .map(function(feature) {
+          feature = ee.Feature(feature);
+          return [feature.get(colId), feature.get('B2')];
+        });
+      return row.select([rowId]).set(ee.Dictionary(values.flatten()));
+    });
+};
+
+var results = format(timeSeries_Multi, 'Site_ID', 'imageID');
+
+var merge = function(table, rowId) {
+  return table.map(function(feature) {
+    var id = feature.get(rowId)
+    var allKeys = feature.toDictionary().keys().remove(rowId)
+    var substrKeys = ee.List(allKeys.map(function(val) { 
+        return ee.String(val).slice(0,8)}
+        ))
+    var uniqueKeys = substrKeys.distinct()
+    var pairs = uniqueKeys.map(function(key) {
+      var matches = feature.toDictionary().select(allKeys.filter(ee.Filter.stringContains('item', key))).values()
+      var val = matches.reduce(ee.Reducer.max())
+      return [key, val]
+    })
+    return feature.select([rowId]).set(ee.Dictionary(pairs.flatten()))
+  })
+}
+var HABs_All = merge(results, 'id');
+
+// //Export to CSV
+Export.table.toDrive({
+    fileNamePrefix: 'National_HAB_Sites_B7_2022',
+    folder: 'Sentinel-2 HAB Nationwide Data (No cloud Threshold)',
+    fileFormat: 'CSV'
+})
