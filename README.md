@@ -2,7 +2,7 @@
 Repository housing the scripts and data for the Regional Harmful Algal Blooms (HABS) Algorithm project and manuscript.
 
 ## Google Earth Engine (GEE) Scripts
-The partial javascript code used to extract Sentinel-2 imagery via GEE can be found in the file "GEE_Sample_Script"
+The partial javascript code used to extract Sentinel-2 imagery via GEE can be found in the file "GEE_Sample_Script.txt"
 
 ## R scripts
 All functions utilized are documented in the following packages:\
