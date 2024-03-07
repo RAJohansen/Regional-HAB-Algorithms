@@ -1,0 +1,16 @@
+Method_Description,Algorithms,R_Squared,Slope,Intercept,P_Value,CV_R_Squared,RMSE,MAE,freq
+"Chlorophyll a, phytoplankton, chromatographic-fluorometric method, micrograms per liter",WQ_Value_log_NDCI,0.504287938,6.166666592,2.204749154,6.55E-223,0.504915911,1.116803379,0.883692203,1450
+"Chlorophyll a, phytoplankton, chromatographic-spectrophotometric method, micrograms per liter",WQ_Value_log_TwoBDA,0.174030645,2.922073402,-2.351409211,0.004843946,0.219956337,0.868062658,0.71740337,44
+"Chlorophyll a, phytoplankton, water, filtered (5 micron filter), chromatographic-fluorometric method, micrograms per liter",WQ_Value_log_TwoBDA,0.306030236,2.954728892,-1.799119243,0.04987126,0.518118144,2.515033663,1.823063741,13
+"Chlorophyll a, water, fluorometric method, corrected, micrograms per liter",WQ_Value_log_TwoBDA,0.004115727,0.471856894,1.949323317,0.617410053,0.081977087,1.472894152,1.148152623,63
+"Chlorophyll a, water, trichromatic method, uncorrected, micrograms per liter",WQ_Value_TwoBDA,0.271220747,57.68275073,-45.20561407,5.26E-21,0.294069467,16.06136015,10.70942448,282
+"Chlorophyll fluorescence (fChl), water, in situ, concentration estimated from reference material, micrograms per liter as chlorophyll",WQ_Value_MCI,0.740747755,0.214146232,9.883392209,2.14E-12,0.756871673,12.87204484,9.915423313,39
+"Chlorophyll fluorescence (fChl), water, in situ, fluorometric method, excitation at 470 +-15 nm, emission at 685 +-20 nm, relative fluorescence units (RFU)",WQ_Value_MCI,0.021824827,0.003401737,4.480282763,0.006590637,0.030290984,4.809369971,3.318341397,337
+"Chlorophyll relative fluorescence (fChl), water, in situ, relative fluorescence units (RFU)",WQ_Value_B6,0.228749996,0.004444314,1.137969518,2.11E-13,0.245131994,3.082627241,2.129354027,210
+"Chlorophylls, water, in situ, fluorometric method, excitation at 470 +-15 nm, emission at 685 +-20 nm, micrograms per liter",WQ_Value_NDCI,0.112908225,41.4182296,10.9590617,3.52E-07,0.117832871,12.16490207,8.81419022,219
+"Phycocyanin fluorescence (fPC), water, in situ, concentration estimated from reference material, micrograms per liter as phycocyanin",WQ_Value_TwoBDA,0.285300139,4.165384583,-3.229992631,1.49E-17,0.361452016,1.784226797,0.861318346,219
+"Phycocyanin relative fluorescence (fPC), water, in situ, relative fluorescence units (RFU)",WQ_Value_TwoBDA,0.354449196,3.697023972,-2.648267593,2.43E-28,0.417979704,1.634737483,0.84807018,281
+"Phycocyanins (cyanobacteria), water, in situ, in vivo fluorescence, in vivo fluorescence units",WQ_Value_log_NDCI,0.281881228,2.912488941,-0.288800187,1.14E-34,0.284535857,0.991759464,0.775063947,458
+"Phycocyanins, water, filtered, recoverable, micrograms per liter",WQ_Value_log_NDCI,0.230834614,7.974997876,1.758032248,0.00023608,0.239462161,2.289142511,1.818787227,54
+YSI EXO Collected Field Total Blue Green Algae,WQ_Value_TwoBDA,0.588237806,3.646699523,-2.961024709,3.36E-11,0.553252866,0.927290927,0.74267916,52
+YSI EXO Collected Field Total Chlorophyll,WQ_Value_TwoBDA,0.398131948,24.95015138,-21.30660757,2.28E-08,0.376347942,8.516002594,5.091001155,64
